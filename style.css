@@ -124,7 +124,7 @@ nav {
   overflow: scroll;
 }
 
-.movement__row {
+.movements__row {
   padding: 2.25rem 4rem;
   display: flex;
   align-items: center;
@@ -141,7 +141,7 @@ nav {
   margin-right: 2rem;
 }
 
-.movement_date {
+.movements_date {
   font-size: 1.1rem;
   text-transform: uppercase;
   font-weight: 500;

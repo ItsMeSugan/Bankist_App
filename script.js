@@ -83,6 +83,29 @@ const displayMovements = function (movements) {
 };
 displayMovements(account1.movements);
 
+///
+
+const calcDisplaySummary = function (movements) {
+  const income = movements
+    .filter(mov => mov > 0)
+    .reduce((acc, mov) => acc + mov, 0);
+  labelSumIn.textContent = `₹${income}`;
+
+  const out = movements
+    .filter(mov => mov < 0)
+    .reduce((acc, mov) => (acc += mov), 0);
+  labelSumOut.textContent = `₹${Math.abs(out)}`;
+
+  const interest = movements
+    .filter(mov => mov > 0)
+    .map(deposit => (deposit * 1.2) / 100)
+    .filter((int, i, arr) => {
+      return int >= 1;
+    })
+    .reduce((acc, int) => acc + int, 0);
+  labelSumInterest.textContent = `₹${interest}`;
+};
+calcDisplaySummary(account1.movements);
 //calculating all the elements from the array boiled down to a single value using 'reduce' function //
 
 const calcDisplayBalance = function (movements) {
