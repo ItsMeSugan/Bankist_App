@@ -15,11 +15,11 @@
   <!-- TOP NAVIGATION -->
   <nav>
     <p class="welcome">Log in to get started</p>
-    <img src="logo.png" alt="Logo" class="logo">
-    <form action="" class="login">
-      <input type="text" class="login__input login__input--user" placeholder="user name">
-      <input type="text" class="login__input login__input--pin" placeholder="PIN" maxlenght="4">
-      <button class="login__btn">&rarr;</button>
+    <img src="logo.png" alt="Logo" class="logo" onclick="window.location.reload()">
+    <form action="#" class="login">
+      <input type="text" class="login__input login__input--user" placeholder="user name" required />
+      <input type="text" class="login__input login__input--pin" placeholder="PIN" maxlenght="4" required />
+      <button type='submit' class="login__btn">&rarr;</button>
     </form>
   </nav>
 
@@ -80,13 +80,14 @@
         <label class="form__label form__label--loan">Amount</label>
       </form>
     </div>
+
     <!-- OPERATION: CLOSE -->
     <div class="operation operation--close">
       <h2>Close account</h2>
       <form action="" class="form form--close">
-        <input type="text" class="form__input form__input--user">
-        <input type="password" name="" class="form__btn form__input--pin" maxlength="6">
-        <button class="form__btn form__btn--close">&rarr;</button>
+        <input type="text" class="form__input form__input--user" required>
+        <input type="password" name="" class="form__input form__input--pin" maxlength="6" required>
+        <button type='submit' class="form__btn form__btn--close">&rarr;</button>
         <label for="" class="form__label">Confirm user</label>
         <label for="" class="form__label">Confirm PIN</label>
       </form>
