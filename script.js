@@ -66,12 +66,12 @@ const inputClosePin = document.querySelector('.form__input--pin');
 // FUNCTION //
 
 // To Modity html DOM elements //
-// using insertAdjectHTML method and innerHTML property //
 const displayMovements = function (movements, sort = false) {
   containerMovements.innerHTML = '';
-
+  // Sorting the movements if the condition is true
   const movs = sort ? movements.slice().sort((a, b) => a - b) : movements;
 
+  // using insertAdjectHTML method and innerHTML property //
   movs.forEach(function (mov, index) {
     const type = mov > 0 ? 'deposit' : 'withdrawal';
     const html = `
@@ -86,8 +86,7 @@ const displayMovements = function (movements, sort = false) {
   });
 };
 
-///
-
+/// Display Summary of deposit , withdrawal and interest rate //
 const calcDisplaySummary = function (acc) {
   const income = acc.movements
     .filter(mov => mov > 0)
@@ -109,14 +108,13 @@ const calcDisplaySummary = function (acc) {
   labelSumInterest.textContent = `₹${interest}`;
 };
 
-//calculating all the elements from the array boiled down to a single value using 'reduce' function //
-
+//Calculating all the elements from the array boiled down to a single value using 'reduce' function //
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
   labelBalance.textContent = `${acc.balance} Rs`;
 };
 
-// Create username for each account using map and forEach method //
+// Create username for each account using map() and forEach() method //
 function createUsernamess(accs) {
   accs.forEach(function (acc) {
     acc.username = acc.owner
@@ -128,6 +126,7 @@ function createUsernamess(accs) {
 }
 createUsernamess(accounts);
 
+// Updating The Page when Function Call //
 const updateUI = function (acc) {
   // Display Movements
   displayMovements(acc.movements);
@@ -139,8 +138,8 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
+// Login IN account //
 let currentAccount;
-
 btnLogin.addEventListener('click', function (e) {
   //prevent form from submitting
   e.preventDefault();
@@ -150,6 +149,7 @@ btnLogin.addEventListener('click', function (e) {
   );
   console.log(currentAccount);
 
+  // Welcome Msg and change style finily update
   if (currentAccount?.pin === Number(inputLoginPin.value)) {
     // Display UI and Message
     labelWelcome.textContent = `Welcome back, ${
@@ -166,12 +166,13 @@ btnLogin.addEventListener('click', function (e) {
   }
 });
 
+// Transfer Amount to another account  and update UI//
 btnTransfer.addEventListener('click', function (e) {
   e.preventDefault();
 
   // changing the string value to number
   const amount = Number(inputTransferAmount.value);
-  // using the find method, checking the condition and assigning the value
+  // using the find method, checking the condition and assign the value
   const receiverAcc = accounts.find(
     acc => acc.username === inputTransferTo.value
   );
@@ -193,6 +194,7 @@ btnTransfer.addEventListener('click', function (e) {
   }
 });
 
+// Deleting Current Account Using Splice and change style //
 btnClose.addEventListener('click', function (e) {
   e.preventDefault();
   if (
@@ -214,6 +216,7 @@ btnClose.addEventListener('click', function (e) {
   inputClosePin.value = inputCloseUsername.value = '';
 });
 
+// Request Loan Using Some() method and update UI //
 btnLoan.addEventListener('click', function (e) {
   e.preventDefault();
   const amount = Number(inputLoanAmount.value);
@@ -228,8 +231,7 @@ btnLoan.addEventListener('click', function (e) {
   inputLoanAmount.value = '';
 });
 
-// Sorting Button
-
+// Sorting Button //
 let sorted = false;
 btnSort.addEventListener('click', function (e) {
   e.preventDefault();
