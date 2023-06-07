@@ -15,6 +15,7 @@ body {
   background-color: #f3f3f3;
   height: 100vh;
   padding: 2rem;
+  margin-bottom: 1rem;
 }
 
 nav {
@@ -82,11 +83,11 @@ nav {
 .app {
   position: relative;
   max-width: 100rem;
-  margin: 4rem auto;
+  margin: auto auto;
   display: grid;
   grid-template-columns: 4fr 3fr;
   grid-template-rows: auto repeat(3, 15rem) auto;
-  gap: 2rem;
+  gap: 1.5rem;
   opacity: 0;
   transition: all 1s
 }
