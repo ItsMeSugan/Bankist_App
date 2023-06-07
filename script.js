@@ -44,7 +44,7 @@ const account2 = {
     '2020-07-26T12:01:20.894Z',
   ],
   currency: 'USD',
-  locale: 'en-US',
+  locale: 'ta-IN',
 };
 
 const accounts = [account1, account2];
@@ -112,13 +112,16 @@ const displayMovements = function (acc, sort = false) {
 
     const date = new Date(acc.movementsDates[index]);
     const displayDate = formatMovementDate(date, acc.locale);
+
+    const formattedMov = formatCur(mov, acc.locale, acc.currency);
+
     const html = `
     <div class="movements__row">
     <div class="movements__type movements__type--${type}">${
       index + 1
     } ${type}</div>
     <div class="movements__date">${displayDate}</div>
-    <div class="movements__value">₹ ${mov.toFixed(2)} </div>
+    <div class="movements__value">${formattedMov}</div>
   </div>`;
 
     containerMovements.insertAdjacentHTML('afterbegin', html);
@@ -130,12 +133,12 @@ const calcDisplaySummary = function (acc) {
   const income = acc.movements
     .filter(mov => mov > 0)
     .reduce((acc, mov) => acc + mov, 0);
-  labelSumIn.textContent = `₹${income.toFixed(2)}`;
+  labelSumIn.textContent = formatCur(income, acc.locale, acc.currency);
 
   const out = acc.movements
     .filter(mov => mov < 0)
     .reduce((acc, mov) => (acc += mov), 0);
-  labelSumOut.textContent = `₹${Math.abs(out).toFixed(2)}`;
+  labelSumOut.textContent = formatCur(Math.abs(out), acc.locale, acc.currency);
 
   const interest = acc.movements
     .filter(mov => mov > 0)
@@ -144,13 +147,13 @@ const calcDisplaySummary = function (acc) {
       return int >= 1;
     })
     .reduce((acc, int) => acc + int, 0);
-  labelSumInterest.textContent = `₹${interest.toFixed(2)}`;
+  labelSumInterest.textContent = formatCur(interest, acc.locale, acc.currency);
 };
 
 //Calculating all the elements from the array boiled down to a single value using 'reduce' function //
 const calcDisplayBalance = function (acc) {
   acc.balance = acc.movements.reduce((acc, mov) => acc + mov, 0);
-  labelBalance.textContent = `${acc.balance} Rs`;
+  labelBalance.textContent = formatCur(acc.balance, acc.locale, acc.currency);
 };
 
 // Create username for each account using map() and forEach() method //
@@ -177,13 +180,21 @@ const updateUI = function (acc) {
   calcDisplaySummary(acc);
 };
 
+// Currency format Function
+const formatCur = function (value, locale, currency) {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency: currency,
+  }).format(value);
+};
+
 // Login IN account //
 let currentAccount;
 
-// //Fake Login Accounts
-// currentAccount = account1;
-// updateUI(currentAccount);
-// containerApp.style.opacity = 100;
+//Fake Login Accounts
+currentAccount = account1;
+updateUI(currentAccount);
+containerApp.style.opacity = 100;
 
 btnLogin.addEventListener('click', function (e) {
   //prevent form from submitting
